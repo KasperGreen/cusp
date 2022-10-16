@@ -23,6 +23,7 @@ export class TeamogramDb {
   }
 
   addScore = async (data: Parameters<typeof this.prisma.score.create>[0]['data']) => {
+    console.log('!!!!!!!DATA!', {data})
     return this.prisma.score.create({data})
   };
 
