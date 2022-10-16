@@ -16,8 +16,6 @@ model UserNameGivenByKasper {
   title         String
   createdDate   DateTime @default(now())
   updatedDate   DateTime @updatedAt
-  givenScore    Score[]  @relation("GivingScore")
-  ressivedScore Score[]  @relation("RessiviedScore")
 }
 
 model Score {
@@ -26,8 +24,6 @@ model Score {
   text                 String
   targetTelegramUserId Int
   givingTelegramUserId Int
-  givingUserName       UserNameGivenByKasper @relation("GivingScore", fields: [givingTelegramUserId], references: [id])
-  targetUserName       UserNameGivenByKasper @relation("RessiviedScore", fields: [targetTelegramUserId], references: [id])
   telegramChatId       BigInt
   telegramMessageJson  Json
   createdDate          DateTime              @default(now())
