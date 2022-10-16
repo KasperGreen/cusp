@@ -11,14 +11,13 @@ datasource db {
   url      = env("TEAMOGRAM_SOURCE_URL")
 }
 
-// CREATE TABLE `score` (
 model Score {
   id Int @id @default(autoincrement())
   value Int
   text String
   targetTelegramUserId Int
   givingTelegramUserId Int
-  telegramChatId Int
+  telegramChatId BigInt
   telegramMessageJson Json
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
