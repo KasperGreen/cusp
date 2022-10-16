@@ -19,10 +19,10 @@ export class TeamogramCommands {
     const usersForStat = statics.reduce((result, item) => {
       const {targetTelegramUserId} = item
       const userNameGivenData = users.find(({id}) => id === targetTelegramUserId)
-      return [...result, { name: userNameGivenData?.title, score: item._sum.value}]
+      return [...result, { id: targetTelegramUserId, name: userNameGivenData?.title, score: item._sum.value}]
     }, [])
-    const scoreStatisticsString = usersForStat.map(({name, score}) => {
-      return `${name.padEnd(12, ' ')}${score}`
+    const scoreStatisticsString = usersForStat.map(({name, id, score}) => {
+      return `${String(name || id).padEnd(12, ' ')}${score}`
     }).join('\n')
     await ctx.reply(scoreStatisticsString || 'Статы пока нет')
   }
