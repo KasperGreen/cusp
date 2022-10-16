@@ -24,3 +24,10 @@ model Score {
   updatedDate DateTime @updatedAt
   @@index([telegramChatId, targetTelegramUserId, givingTelegramUserId, createdDate(sort: Desc)])
 }
+
+model UserNameGivenByKasper {
+    id Int @id
+    title String
+    createdDate DateTime @default(now())
+    updatedDate DateTime @updatedAt
+}

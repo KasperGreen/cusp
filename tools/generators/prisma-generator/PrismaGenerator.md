@@ -17,6 +17,11 @@ nx workspace-generator prisma-generator GeneratedSchemaName
 ```shell
 prisma db push --schema="./libs/prisma-clients/generated-schema-name/prisma/schema.prisma"
 prisma generate --schema="./libs/prisma-clients/generated-schema-name/prisma/schema.prisma"
+prisma migrate dev --schema="./libs/prisma-clients/generated-schema-name/prisma/schema.prisma"
 ```
 
+
+prisma db push --schema="./libs/prisma-clients/teamogram/prisma/schema.prisma"
+prisma generate --schema="./libs/prisma-clients/teamogram/prisma/schema.prisma"
+prisma migrate dev --schema="./libs/prisma-clients/teamogram/prisma/schema.prisma"
 
