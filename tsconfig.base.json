@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cusp/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@cusp/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@nx-prisma/prisma-clients": ["libs/prisma-clients/index.ts"],
+      "@nx-prisma/prisma-clients/*": ["libs/prisma-clients/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
