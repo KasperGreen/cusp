@@ -1,6 +1,6 @@
 import {ContextWithTextMessage} from "../../types/Teamogram.types";
-import {Context} from "telegraf";
 import {db} from "../../db";
+import {TeamogramHelpers} from "../helpers/TeamogramHelpers";
 
 export class TeamogramCommands {
   static me = async (ctx: ContextWithTextMessage) => {
@@ -9,11 +9,22 @@ export class TeamogramCommands {
     if(text && from) {
       await ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id)
       const userGivenData = await db.getGivenNameByTelegramUserId(from.id)
-      const name = userGivenData?.title || this.getUserNameByMessageFrom(from)
+      const name = userGivenData?.title || TeamogramHelpers.getUserNameByMessageFrom(from)
       await ctx.reply(`${name} ${text}`)
     }
   }
-  static getUserNameByMessageFrom = (from: Context['message']['from']) => {
-    return from.username || from.first_name || from.last_name
+  static stat = async (ctx: ContextWithTextMessage) => {
+    const statics = await db.getScoreStatistics()
+    const users = await db.getGivenNames()
+    const usersForStat = statics.reduce((result, item) => {
+      const {targetTelegramUserId} = item
+      const userNameGivenData = users.find(({id}) => id === targetTelegramUserId)
+      return [...result, { name: userNameGivenData?.title, score: item._sum.value}]
+    }, [])
+    const scoreStatisticsString = usersForStat.map(({name, score}) => {
+      return `${name.padEnd(12, ' ')}${score}`
+    }).join('\n')
+    await ctx.reply(scoreStatisticsString)
   }
+
 }

@@ -11,22 +11,27 @@ datasource db {
   url      = env("TEAMOGRAM_SOURCE_URL")
 }
 
-model Score {
-  id Int @id @default(autoincrement())
-  value Int
-  text String
-  targetTelegramUserId Int
-  givingTelegramUserId Int
-  telegramChatId BigInt
-  telegramMessageJson Json
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
-  @@index([telegramChatId, targetTelegramUserId, givingTelegramUserId, createdDate(sort: Desc)])
+model UserNameGivenByKasper {
+  id            Int      @id
+  title         String
+  createdDate   DateTime @default(now())
+  updatedDate   DateTime @updatedAt
+  givenScore    Score[]  @relation("GivingScore")
+  ressivedScore Score[]  @relation("RessiviedScore")
 }
 
-model UserNameGivenByKasper {
-    id Int @id
-    title String
-    createdDate DateTime @default(now())
-    updatedDate DateTime @updatedAt
+model Score {
+  id                   Int                   @id @default(autoincrement())
+  value                Int
+  text                 String
+  targetTelegramUserId Int
+  givingTelegramUserId Int
+  givingUserName       UserNameGivenByKasper @relation("GivingScore", fields: [givingTelegramUserId], references: [id])
+  targetUserName       UserNameGivenByKasper @relation("RessiviedScore", fields: [targetTelegramUserId], references: [id])
+  telegramChatId       BigInt
+  telegramMessageJson  Json
+  createdDate          DateTime              @default(now())
+  updatedDate          DateTime              @updatedAt
+
+  @@index([telegramChatId, targetTelegramUserId, givingTelegramUserId, createdDate(sort: Desc)])
 }
