@@ -24,7 +24,7 @@ export class TeamogramCommands {
     const scoreStatisticsString = usersForStat.map(({name, score}) => {
       return `${name.padEnd(12, ' ')}${score}`
     }).join('\n')
-    await ctx.reply(scoreStatisticsString)
+    await ctx.reply(scoreStatisticsString || 'Статы пока нет')
   }
 
 }
