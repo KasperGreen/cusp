@@ -22,9 +22,14 @@ export class TeamogramCommands {
       return [...result, { id: targetTelegramUserId, name: userNameGivenData?.title, score: item._sum.value}]
     }, [])
     const scoreStatisticsString = usersForStat.map(({name, id, score}) => {
-      return `${String(name || id).padEnd(12, ' ')}${score}`
+      return `${String(score).padEnd(8, ' ')} ${String(name || id)}`
     }).join('\n')
-    await ctx.reply(scoreStatisticsString || 'Статы пока нет')
+    await ctx.reply(`
+Вздрыжстата
+--
+
+${scoreStatisticsString}
+    ` || 'Статы пока нет')
   }
 
 }
