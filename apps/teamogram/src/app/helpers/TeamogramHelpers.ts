@@ -28,7 +28,7 @@ export class TeamogramHelpers {
 
 сумма оценок (количество)
 
-    `+scores.map(({id, score, count}) => {
+`+scores.map(({id, score, count}) => {
       return `${String(score).padEnd(12, ' ')} ${String(usersNamesById[id] || id).padEnd(12, ' ')} (${count})`
     }).join('\n')
 
