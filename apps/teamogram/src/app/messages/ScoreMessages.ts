@@ -1,10 +1,10 @@
-import {ContextWithTextMessage} from "../../types/Teamogram.types";
+import {TelegraphContextWithTextMessage} from "../../types/Teamogram.types";
 import {db} from "../../db";
 import {TeamogramHelpers} from "../helpers/TeamogramHelpers";
 
 export class ScoreMessages {
   static #scoreRegExp = /([+-]\d+)вздрыж/
-  static addScore = async (ctx: ContextWithTextMessage) => {
+  static addScore = async (ctx: TelegraphContextWithTextMessage) => {
     if (
       ctx.message
       && ctx.message.reply_to_message

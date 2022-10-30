@@ -26,8 +26,13 @@ export class TeamogramDb {
     return this.prisma.score.create({data})
   };
 
-  getScoreStatistics = async () => {
+  getScoreTest = async () => {
+    return this.prisma.score.findMany({where: {telegramChatId: 100}})
+  }
+
+  getScoreStatistics = async (telegramChatId: number) => {
     return this.prisma.score.groupBy({
+      where: {telegramChatId},
       by: ['targetTelegramUserId'],
       orderBy: [{
         _sum: {
@@ -42,4 +47,33 @@ export class TeamogramDb {
       },
     })
   }
+
+
+  getUsernamesUserData = async (usersIds: number[]) => {
+    return this.prisma.userNameGivenByKasper.findMany({where: {
+      id: {
+        in: usersIds
+      }
+      }})
+  }
+
+  getGivenScoreStatistics = async (telegramChatId: number) => {
+    return this.prisma.score.groupBy({
+      where: {telegramChatId},
+      by: ['givingTelegramUserId'],
+      orderBy: [{
+        _sum: {
+          value: 'desc'
+        }
+      }],
+      _sum: {
+        value: true
+      },
+      _count: {
+        value: true
+      },
+    })
+  }
+
+
 }
