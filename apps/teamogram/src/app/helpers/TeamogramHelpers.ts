@@ -24,7 +24,11 @@ export class TeamogramHelpers {
   static getStatTableStringFromScores = async (scores: UserScoreList) => {
     const usersIds = scores.map((i) => i.id)
     const usersNamesById = await TeamogramHelpers.getUserNamesByIds(usersIds)
-    return  scores.map(({id, score, count}) => {
+    return  `
+
+сумма оценок (количество)
+
+    `+scores.map(({id, score, count}) => {
       return `${String(score).padEnd(12, ' ')} ${String(usersNamesById[id] || id).padEnd(12, ' ')} (${count})`
     }).join('\n')
 
