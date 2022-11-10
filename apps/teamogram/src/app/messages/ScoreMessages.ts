@@ -3,10 +3,10 @@ import {db} from "../../db";
 import {TeamogramHelpers} from "../helpers/TeamogramHelpers";
 
 
-
 export class ScoreMessages {
   static #scoreRegExp = /([+-]\d+)вздрыж/
-  static #shortScoreRegExp = /\+{1,4}|-{1,4}/
+  static #shortScoreRegExp = /^\+{1,4}|-{1,4}$/
+  static #alternativeShortMinusScoreRegExp = /^—{1,2}$/
   static #addScoreToDbAndReplyIfItNotPossible = async (scoreValue: number, ctx: TelegraphContextWithTextMessage) => {
     if (scoreValue) {
       let resultScoreValue = 0
@@ -31,8 +31,7 @@ ${userName}, тебе не кажется, что это слишком мног
           telegramMessageJson: JSON.stringify(ctx.message)
         })
       }
-    }
-    else {
+    } else {
       const userName = await TeamogramHelpers.getUserNameFromDbByContext(ctx)
       await ctx.reply(`
 ${userName}, что-то пошло не так. Это сообщение не должно было появиться. Пришло нулевое значение.`)
@@ -49,7 +48,7 @@ ${userName}, что-то пошло не так. Это сообщение не 
       const {text} = ctx.message
 
       const shortMatch = text.match(this.#shortScoreRegExp)
-      if(shortMatch) {
+      if (shortMatch) {
         const matchedScoreValue = shortMatch[0]
         const matchedScoreNumber = matchedScoreValue.length
 
@@ -58,14 +57,20 @@ ${userName}, что-то пошло не так. Это сообщение не 
           : -matchedScoreNumber
 
       } else {
-        const match = text.match(this.#scoreRegExp)
-        if (match) {
-          scoreValue = Number(match?.[1]?.replace('+', ''))
+        const alternativeShortMinusScoreMatch = text.match(this.#alternativeShortMinusScoreRegExp)
+        if (alternativeShortMinusScoreMatch) {
+          scoreValue = -alternativeShortMinusScoreMatch[0].length * 2
+        } else {
+          const match = text.match(this.#scoreRegExp)
+          if (match) {
+            scoreValue = Number(match?.[1]?.replace('+', ''))
+          }
         }
+
       }
 
 
-      if(scoreValue) {
+      if (scoreValue) {
         await this.#addScoreToDbAndReplyIfItNotPossible(scoreValue, ctx)
       }
 
