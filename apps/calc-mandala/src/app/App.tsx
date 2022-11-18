@@ -1,14 +1,11 @@
 import styled from 'styled-components';
+import {MandalaPrice} from "./MandalaPrice";
 
 const StyledApp = styled.div`
   // Your style here
 `;
 
 
-type MandalaPicture = {
-  sizeInMillimeters: number,
-  form: 'square' | 'circle'
-}
 
 type CircleMandala = {
   radius: number
@@ -17,18 +14,15 @@ type CircleMandala = {
 export function App() {
 
   const mandala: CircleMandala = {
-    radius: 200
+    radius: 500
   }
-
-  const polygonSize = Math.PI * mandala.radius ** 2
-  const multiplier = mandala.radius / 1080 * 2
-  const price = polygonSize * 0.0108*2
+  const price = MandalaPrice.calculate(mandala.radius)
 
 
   return (
     <StyledApp>
       <h1>Привет!</h1>
-      {price + price * multiplier}
+      {price}
       <div css={`color: red`}>
 
       </div>
