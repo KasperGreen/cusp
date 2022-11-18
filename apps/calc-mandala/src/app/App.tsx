@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import {MandalaPrice} from "./MandalaPrice";
+import {MandalaPrice} from "@cusp/mandala-price";
 
 const StyledApp = styled.div`
   // Your style here
 `;
-
 
 
 type CircleMandala = {
