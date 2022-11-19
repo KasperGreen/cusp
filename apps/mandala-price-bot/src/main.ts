@@ -16,7 +16,7 @@ bot.on('message', (ctx) => {
     const formattedPrice = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price)
     ctx.reply(`${formattedPrice}`)
   } else {
-    ctx.reply('Введите размер мандалы в миллиметрах и получите примерную стоимость.')
+    ctx.reply('Введите радиус мандалы в миллиметрах и получите примерную стоимость.')
   }
 })
 bot.launch().then(() => {
