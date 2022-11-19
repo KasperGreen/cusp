@@ -8,9 +8,10 @@ bot.help((ctx) => ctx.reply('Тут нужно бы про команды. На�
 bot.on('message', (ctx) => {
   const msg: {text?: string} = ctx.message as unknown as any
   const text = msg?.text || ""
-  const match = text.match(/^\d{1,4}$/)
-  if(match) {
-    const millimeters = Number(match[0])
+  const matchNumber = text.match(/^\d{1,4}$/)
+  const matchCentimeters = text.match(/^(\d{1,3})см$/)
+  if(matchNumber || matchCentimeters) {
+    const millimeters = Number(matchNumber?.[0]) || Number(matchCentimeters?.[1]) * 10
     const price = MandalaPrice.calculate(millimeters)
     const formattedPrice = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price)
     ctx.reply(`${formattedPrice}`)
