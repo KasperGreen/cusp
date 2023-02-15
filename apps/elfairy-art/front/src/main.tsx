@@ -3,6 +3,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import {Route, Routes, BrowserRouter} from 'react-router-dom'
 import {Home} from "./pages/home/home";
+import {GlobalStylesStyled} from "../styles/GlobalStyles.styled";
 
 
 const root = ReactDOM.createRoot(
@@ -10,11 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
+    <GlobalStylesStyled />
     <BrowserRouter>
       <Routes>
         <Route path={'/lol'} element={<h2>kol</h2>} />
         <Route path={'/'} element={<section>
-          <h2>home</h2>
           <Home />
         </section>
         } />
