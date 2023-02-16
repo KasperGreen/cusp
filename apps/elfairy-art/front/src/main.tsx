@@ -1,7 +1,7 @@
 /// <reference types="styled-components/cssprop" />
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import {Route, Routes, BrowserRouter} from 'react-router-dom'
+import {Route, Routes, BrowserRouter, Navigate} from 'react-router-dom'
 import {Home} from "./pages/home/home";
 import {GlobalStylesStyled} from "../styles/GlobalStyles.styled";
 
@@ -14,11 +14,11 @@ root.render(
     <GlobalStylesStyled />
     <BrowserRouter>
       <Routes>
-        <Route path={'/lol'} element={<h2>kol</h2>} />
-        <Route path={'/'} element={<section>
+        <Route index element={<section>
           <Home />
         </section>
         } />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
