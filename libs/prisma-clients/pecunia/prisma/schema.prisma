@@ -10,3 +10,9 @@ datasource db {
   provider = "mysql"
   url      = env("PECUNIA_SOURCE_URL")
 }
+
+model Spend {
+  id                   Int                   @id @default(autoincrement())
+  value                Int
+  text                 String
+}

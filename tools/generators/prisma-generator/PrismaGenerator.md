@@ -25,3 +25,7 @@ prisma migrate dev --schema="./libs/prisma-clients/teamogram/prisma/schema.prism
 prisma db push --schema="./libs/prisma-clients/teamogram/prisma/schema.prisma"
 prisma generate --schema="./libs/prisma-clients/teamogram/prisma/schema.prisma"
 
+
+prisma migrate dev --schema="./libs/prisma-clients/pecunia/prisma/schema.prisma"
+prisma db push --schema="./libs/prisma-clients/pecunia/prisma/schema.prisma"
+prisma generate --schema="./libs/prisma-clients/pecunia/prisma/schema.prisma"
