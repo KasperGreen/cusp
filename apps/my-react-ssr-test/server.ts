@@ -9,7 +9,7 @@ const app = express();
 
 const browserDist = path.join(
   process.cwd(),
-  'dist/apps/my-react-ssr-test/browser'
+  '../browser'
 );
 const indexPath = path.join(browserDist, 'index.html');
 
