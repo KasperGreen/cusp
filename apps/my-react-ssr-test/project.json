@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/apps/my-react-ssr-test",
+        "outputPath": "dist/apps/my-react-ssr-test/browser",
         "index": "apps/my-react-ssr-test/src/index.html",
         "baseHref": "/",
         "main": "apps/my-react-ssr-test/src/main.tsx",
@@ -48,19 +48,21 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/webpack:dev-server",
+      "executor": "@nrwl/webpack:ssr-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "my-react-ssr-test:build",
-        "hmr": true
+        "browserTarget": "my-react-ssr-test:build:development",
+        "serverTarget": "my-react-ssr-test:serve-server:development",
+        "port": 4200,
+        "browserTargetOptions": {
+          "watch": true
+        }
       },
       "configurations": {
-        "development": {
-          "buildTarget": "my-react-ssr-test:build:development"
-        },
+        "development": {},
         "production": {
-          "buildTarget": "my-react-ssr-test:build:production",
-          "hmr": false
+          "browserTarget": "my-react-ssr-test:build:production",
+          "serverTarget": "my-react-ssr-test:serve-server:production"
         }
       }
     },
@@ -82,6 +84,71 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "server": {
+      "dependsOn": ["build"],
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "main": "apps/my-react-ssr-test/server.ts",
+        "outputPath": "dist/apps/my-react-ssr-test/server",
+        "tsConfig": "apps/my-react-ssr-test/tsconfig.server.json",
+        "compiler": "babel",
+        "externalDependencies": "all",
+        "outputHashing": "none",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/my-react-ssr-test/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/my-react-ssr-test/src/environments/environment.ts",
+              "with": "apps/my-react-ssr-test/src/environments/environment.prod.ts"
+            }
+          ],
+          "sourceMap": false
+        }
+      }
+    },
+    "serve-browser": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "my-react-ssr-test:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "my-react-ssr-test:build:development"
+        },
+        "production": {
+          "buildTarget": "my-react-ssr-test:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-server": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "my-react-ssr-test:server:development",
+        "buildTargetOptions": {
+          "watch": true
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "my-react-ssr-test:server:production"
         }
       }
     }
