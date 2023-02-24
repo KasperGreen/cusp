@@ -59,7 +59,10 @@ export const Home = () => {
         <nav css={`
           background: rgba(0,0,0,0.84);
           color: white;
-          font-size: 3vw;
+          font-size: 3.14vmin;
+          @media(orientation: portrait) {
+            font-size: 9vmin;
+          }
           position: absolute;
           z-index: 2;
           left: 50%;
