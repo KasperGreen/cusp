@@ -53,10 +53,41 @@ export const Home = () => {
               icon={handle.active ? faMinimize : faMaximize}
             />
           </button>
-
         </div>
 
         <MandalaGrid/>
+        <nav css={`
+          background: rgba(0,0,0,0.84);
+          color: white;
+          font-size: 3vw;
+          position: absolute;
+          z-index: 2;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          padding: 2vw;
+
+          ul {
+            list-style: none;
+
+            li {
+              margin: 0;
+            }
+
+            a {
+              color: white;
+            }
+          }
+        `}>
+          <h1>Contacts</h1>
+          <h2>@elfafeya</h2>
+          <ul>
+            <li><a href={'https://t.me/elfafeya'} rel={'noreferrer'} target={"_blank"}>telegram</a></li>
+            <li><a href={'https://instagram.com/elfafeya'} rel={'noreferrer'} target={"_blank"}>instagram</a></li>
+            <li><a href={'https://facebook.com/elfafeya'} rel={'noreferrer'} target={'_blank'}>facebook</a></li>
+            <li><a href={'https://vk.com/elfafeya'} rel={'noreferrer'} target={'_blank'}>vkontakte</a></li>
+          </ul>
+        </nav>
       </FullScreen>
     </section>
   )
