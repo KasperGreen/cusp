@@ -56,12 +56,13 @@ export const Home = () => {
         </div>
 
         <MandalaGrid/>
-        <nav css={`
+        {!handle.active &&
+          <nav css={`
           background: rgba(0,0,0,0.84);
           color: white;
-          font-size: 3.14vmin;
+          font-size: 6vh;
           @media(orientation: portrait) {
-            font-size: 9vmin;
+            font-size: 9vw;
           }
           position: absolute;
           z-index: 2;
@@ -91,6 +92,7 @@ export const Home = () => {
             <li><a href={'https://vk.com/elfafeya'} rel={'noreferrer'} target={'_blank'}>vkontakte</a></li>
           </ul>
         </nav>
+        }
       </FullScreen>
     </section>
   )
