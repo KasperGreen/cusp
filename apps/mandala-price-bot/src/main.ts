@@ -39,14 +39,15 @@ function replyBySize(size: number) {
   const millimeters = size * 10
   const square = Math.PI * (millimeters / 10 / 2) ** 2
   const price = MandalaPrice.calculate(millimeters)
-  const formattedPrice = new Intl.NumberFormat('ru-RU', {style: 'currency', currency: 'RUB'}).format(price)
+  const formattedPrice = new Intl.NumberFormat('ru-RU', {style: 'currency', currency: 'RUB'})
+    .format(Math.ceil(price))
   return (
     `
 Мандала со стороной ${millimeters / 10}см займёт ${Math.ceil(square)}см²
 
 (это примерно ${Math.ceil(square / 50)} шт. в пересчёте на магниты со стороной 8см)
 
-будет стоить примерно ${formattedPrice}₽
+будет стоить примерно ${formattedPrice}
 
 `
   )
