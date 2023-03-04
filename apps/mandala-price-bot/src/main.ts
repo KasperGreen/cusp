@@ -1,16 +1,17 @@
 import {config} from "dotenv";
+import {chunk} from 'lodash'
 
 config()
 import {Telegraf, Markup} from 'telegraf';
 import {MandalaPrice} from "@cusp/mandala-price";
 
-const simpleSizes = [15, 20, 30, 40, 50, 60, 80, 90]
+const simpleSizes = [15, 20, 30, 40, 50, 60, 80, 90, 108]
 const bot = new Telegraf(process.env.MANDALA_PRICE_BOT_TOKEN)
 bot.help((ctx) => ctx.reply('Тут нужно бы про команды. Например /me — её нужно писать с текстом'))
 bot.on('message', (ctx) => {
   const msg: { text?: string } = ctx.message as unknown as any
   const text = msg?.text || ""
-  const matchCentimeters = text.match(/^\d{1,4}$/)
+  const matchCentimeters = text.match(/^(\d{1,4})(см)?$/)?.[1]
   if (!matchCentimeters) {
     ctx.reply(`
 
@@ -28,11 +29,11 @@ bot.on('message', (ctx) => {
 
 Введите размер мандалы в сантиметрах или выберите из типовых размеров и получите примерную стоимость.`, {
       parse_mode: 'HTML',
-      ...Markup.inlineKeyboard([
-        ...simpleSizes.map((size) => {
-          return Markup.button.callback(size + 'см', `size${size}`)
-        })
-      ])
+      ...Markup.keyboard([
+        ...chunk(simpleSizes.map((size) => {
+            return Markup.button.callback(size + 'см', `size${size}`)
+          })
+        , 3)      ])
     })
 
   } else {
