@@ -14,24 +14,6 @@
         "assets": ["libs/pantones/*.md"]
       }
     },
-    "versionMinor": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "git push && npm version minor && git push"
-      }
-    },
-    "versionPatch": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "cd ./libs/pantones && git push && npm version patch && git push"
-      }
-    },
-    "versionMajor": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "git push && npm version major && git push"
-      }
-    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
