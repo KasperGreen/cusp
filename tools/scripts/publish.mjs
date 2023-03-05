@@ -14,7 +14,7 @@ import chalk from "chalk";
 // Executing publish script: node path/to/publish.mjs {name} --version {version} --tag {tag}
 // Default "tag" to "next" so we won't publish the "latest" tag by accident.
 const [, , name] = process.argv;
-
+console.log(process.cwd());
 
 function invariant(condition, message) {
   if (!condition) {
@@ -33,12 +33,29 @@ invariant(
 );
 
 const outputPath = project.data?.targets?.build?.options?.outputPath;
+const projectRoot = project.data.root;
+
 invariant(
   outputPath,
   `Could not find "build.options.outputPath" of project "${name}". Is project.json configured  correctly?`
 );
+invariant(
+  projectRoot,
+  `Could not find "projectRoot" of project "${name}". Is project.json configured  correctly?`
+);
 
-process.chdir(outputPath);
+process.chdir(projectRoot)
+execSync(`npm version patch`);
+
+process.chdir('../../');
+
+execSync(`git add .`);
+execSync(`git commit -m "version"`);
+execSync(`git push"`);
+execSync(`nx build ${name}`);
+
+
+process.chdir(outputPath)
 
 // Execute "npm publish" to publish
 execSync(`npm publish --access public --tag latest`);
