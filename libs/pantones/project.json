@@ -24,7 +24,7 @@
     "versionPatch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npm version patch && git commit -m \"version\""
+        "command": "npm version patch && git commit -m \"version\" && git push"
       },
       "dependsOn": ["build"]
     },
