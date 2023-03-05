@@ -23,12 +23,6 @@ function invariant(condition, message) {
   }
 }
 
-// A simple SemVer validation to validate the version
-const validVersion = /^\d+\.\d+\.\d+(-\w+\.\d+)?/;
-invariant(
-  version && validVersion.test(version),
-  `No version provided or version did not match Semantic Versioning, expected: #.#.#-tag.# or #.#.#, got ${version}.`
-);
 
 const graph = devkit.readCachedProjectGraph();
 const project = graph.nodes[name];
@@ -47,7 +41,7 @@ invariant(
 process.chdir(outputPath);
 
 // Execute "npm publish" to publish
-execSync(`npm publish --access public --tag next`);
+execSync(`npm publish --access public --tag latest`);
 
 // Executing publish script: node path/to/publish.mjs {name} --version {version} --tag {tag}
 // Default "tag" to "next" so we won't publish the "latest" tag by accident.
