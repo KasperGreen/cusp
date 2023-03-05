@@ -21,6 +21,7 @@
       }
     },
     "versionPatch": {
+      "root": "libs/pantones",
       "executor": "nx:run-commands",
       "options": {
         "command": "git push && npm version patch && git push"
