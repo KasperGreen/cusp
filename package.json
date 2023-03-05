@@ -1,13 +1,13 @@
 {
   "name": "cusp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
