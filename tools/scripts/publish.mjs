@@ -46,17 +46,12 @@ invariant(
 
 process.chdir(projectRoot)
 execSync(`npm version patch`);
-
 process.chdir('../../');
-
 execSync(`git add .`);
 execSync(`git commit -m "version"`);
 execSync(`git push"`);
 execSync(`nx build ${name}`);
-
-
 process.chdir(outputPath)
-
 // Execute "npm publish" to publish
 execSync(`npm publish --access public --tag latest`);
 
