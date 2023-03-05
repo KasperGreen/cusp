@@ -1,9 +1,8 @@
 /* eslint-disable */
 export default {
-  displayName: 'teamogram',
+  displayName: 'pantones',
   preset: '../../jest.preset.js',
   globals: {},
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': [
       'ts-jest',
@@ -13,5 +12,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/teamogram',
+  coverageDirectory: '../../coverage/libs/pantones',
 };

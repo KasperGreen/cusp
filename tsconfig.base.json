@@ -17,6 +17,7 @@
     "paths": {
       "@cusp/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@cusp/mandala-price": ["libs/mandala-price/src/index.ts"],
+      "@cusp/pantones": ["libs/pantones/src/index.ts"],
       "@nx-prisma/prisma-clients": ["libs/prisma-clients/index.ts"],
       "@nx-prisma/prisma-clients/*": ["libs/prisma-clients/*"]
     }
