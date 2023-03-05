@@ -45,6 +45,8 @@ invariant(
 );
 
 process.chdir(projectRoot)
+execSync(`nx lint ${name}`);
+execSync(`nx test ${name}`);
 execSync(`npm version patch`);
 process.chdir('../../');
 execSync(`git add .`);
